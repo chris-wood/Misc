@@ -15,3 +15,4 @@ system("./$ARGV[0] $args > $ARGV[0].out");
 my $end = time;
 my $run_time = $end - $start;
 print "$run_time\n";
+  
