@@ -23,18 +23,19 @@ int main(int argc, char **argv)
     trials = atoi(argv[3]);
   }
 
+  mpz_init(r);
+  mpz_random(r, bit_size);
+  mpz_nextprime(r, r);
+
   for (i = 0; i < trials; i++) 
   {
     mpz_init(x);
     mpz_init(y);
     mpz_init(z);
-    mpz_init(r);
 
     // fill y/z randomly, and then generate the next 160-bit prime
-    mpz_random(r, bit_size);
     mpz_random(y, bit_size);
     mpz_random(z, bit_size);
-    mpz_nextprime(r, r);
   
     // Time the operation and add up the time
     if (mode == 0)
