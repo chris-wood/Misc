@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     }
   }
 
-  printf("Trials:       %d\n", trials)
+  printf("Trials:       %d\n", trials);
   printf("Total time:   %ld\n", elapsed);
   printf("Average time: %ld\n", elapsed / trials);
 
