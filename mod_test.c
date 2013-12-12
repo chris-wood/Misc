@@ -44,7 +44,7 @@ int main(int argc, char **argv)
       mpz_mod(x, x, r);
       clock_gettime(CLOCK_MONOTONIC, &te);
       secs = difftime(te.tv_sec, ts.tv_sec);
-      elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.nsec)));
+      elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
     }
     else 
     {
