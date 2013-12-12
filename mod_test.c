@@ -57,7 +57,9 @@ int main(int argc, char **argv)
     }
   }
 
-  printf("%ld\n", elapsed / trials);
+  printf("Trials:       %d\n", trials)
+  printf("Total time:   %ld\n", elapsed);
+  printf("Average time: %ld\n", elapsed / trials);
 
   // printf("x = (y * z) mod r = ");
   // mpz_out_str (stdout, 10, x);
