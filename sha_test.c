@@ -1,26 +1,43 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include <openssl/sha.h>
 
-unsigned char ibuf[64] = 
+#define BUF_SIZE 20
+
+int main(int argc, char** argv)
 {
-	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
-	0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
-	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
-	0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F
-};
+    unsigned char obuf[BUF_SIZE]; // 160 bits
+    unsigned char ibuf[BUF_SIZE]; // 160 bits
+    struct timespec ts, te;
+    int trials, i, j = 0;
+    long elapsed = 0L;
+    double secs = 0.0;
 
-int main()
-{
-    unsigned char obuf[20];
-
-    SHA1(ibuf, strlen(ibuf), obuf);
-
-    int i;
-    for (i = 0; i < 20; i++) {
-        printf("%02x ", obuf[i]);
+    if (argc != 2)
+    {
+        printf("Specify the number of trials...\n");
+        return -1;
     }
-    printf("\n");
+    else
+    {
+        trials = atoi(argv[1]);
+    }
+
+    for (i = 0; i < trials; i++)
+    {
+        // generate random bytes (far from truly random... but that's OK for the test)
+        for (j = 0; j < BUF_SIZE; j++) ibuf[j] = (rand() % 256);
+        
+        // time the hash computation
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+        SHA1(ibuf, BUF_SIZE, obuf);
+        clock_gettime(CLOCK_MONOTONIC, &te);
+        secs = difftime(te.tv_sec, ts.tv_sec);
+        elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.nsec)));
+    }
+
+    printf("%ld\n", elapsed / trials);
 
     return 0;
 }
