@@ -11,21 +11,29 @@ int main(int argc, char **argv)
   mpz_init(x); mpz_init(y); mpz_init(z); mpz_init(r);
   struct timespec ts, te;
 
-  if (argc != 4)
+  if (argc < 4)
   {
-    printf("usage: mod_test mode bit_size trials\n");
+    printf("usage: mod_test mode bit_size modulus trials\n");
     return -1;
   }
   else
   {
     mode = atoi(argv[1]);
     bit_size = atoi(argv[2]);
-    trials = atoi(argv[3]);
+    if (argc == 4) trials = atoi(argv[3]);
+    else if (argc == 5) trials = atoi(argv[4]);
   }
 
-  mpz_init(r);
-  mpz_random(r, bit_size);
-  mpz_nextprime(r, r);
+  if (argc == 4)
+  {
+    mpz_init(r);
+    mpz_random(r, bit_size);
+    mpz_nextprime(r, r);
+  }
+  else if (argc == 5)
+  {
+    mpz_init_set_str(r, argv[3], bit_size);
+  }
 
   for (i = 0; i < trials; i++) 
   {
@@ -47,7 +55,16 @@ int main(int argc, char **argv)
       secs = difftime(te.tv_sec, ts.tv_sec);
       elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
     }
-    else 
+    if (mode == 1)
+    {
+      clock_gettime(CLOCK_MONOTONIC, &ts);
+      mpz_mul(x, y, z);
+      mpz_mod(x, x, r);
+      clock_gettime(CLOCK_MONOTONIC, &te);
+      secs = difftime(te.tv_sec, ts.tv_sec);
+      elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
+    }
+    else if (mode == 2)
     {
       clock_gettime(CLOCK_MONOTONIC, &ts);
       mpz_add(x, y, z);
