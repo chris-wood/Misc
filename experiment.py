@@ -18,7 +18,7 @@ for b in bits:
 			l = l.strip()
 			lines.append("mod_mult_prime," + str(b) + "," + l) 
 		for m in modulus:
-			p = subprocess.Popen('./mod_test 0 ' + str(b) + ' ' str(m) + ' ' + str(t), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+			p = subprocess.Popen('./mod_test 0 ' + str(b) + ' ' + str(m) + ' ' + str(t), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 			for l in p.stdout.readlines():
 				l = l.strip()
 				lines.append("mod_mult_2power," + str(m) + "," + l) 
@@ -29,7 +29,7 @@ for b in bits:
 			l = l.strip()
 			lines.append("mod_add_prime," + str(b) + "," + l) 
 		for m in modulus:
-			p = subprocess.Popen('./mod_test 1 ' + str(b) + ' ' str(m) + ' ' + str(t), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+			p = subprocess.Popen('./mod_test 1 ' + str(b) + ' ' + str(m) + ' ' + str(t), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 			for l in p.stdout.readlines():
 				l = l.strip()
 				lines.append("mod_add_2power," + str(m) + "," + l) 
