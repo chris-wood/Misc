@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
   if (argc < 4)
   {
-    printf("usage: mod_test mode bit_size modulus trials\n");
+    printf("usage: mod_test mode bit_size <modulus> trials\n");
     return -1;
   }
   else
@@ -33,6 +33,9 @@ int main(int argc, char **argv)
   else if (argc == 5)
   {
     mpz_init_set_str(r, argv[3], bit_size);
+    printf("Initializing modulus to: %s\n", argv[3]);
+    mpz_out_str(stdout, bit_size, r);
+    printf("\n");
   }
 
   for (i = 0; i < trials; i++) 
