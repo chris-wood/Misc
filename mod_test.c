@@ -2,6 +2,24 @@
 #include <time.h>
 #include <gmp.h>
 
+// copied from: http://comp.ist.utl.pt/ec-csc/Labs/sol-RSA/rsa2.c
+void str2int(mpz_t ret, char *str, long int str_len) {
+/* string to integer */
+  long int i;
+  unsigned char c;
+
+  /* ret = 0 */
+  mpz_set_ui(ret, 0UL);
+
+  /* ret = str[str_len - 1] * BASE^(str_len - 1) + ... + str[1] * BASE + str[0] */
+  for(i = str_len - 1; i >= 0; i--) {
+    c = str[i];
+
+    /* Horner's method */
+    mpz_mul_ui(ret, ret, (unsigned long)BASE);
+    mpz_add_ui(ret, ret, (unsigned long)c); }
+}
+
 int main(int argc, char **argv)
 {
   int i, trials, mode, bit_size = 0;
@@ -32,7 +50,7 @@ int main(int argc, char **argv)
   }
   else if (argc == 5)
   {
-    mpz_init_set_str(&r, argv[3], bit_size);
+    str2int(r, argv[3], strlen(argv[3]));
     printf("Initializing modulus to: %s\n", argv[3]);
     mpz_out_str(stdout, bit_size, r);
     printf("\n");
