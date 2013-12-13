@@ -60,9 +60,9 @@ int main(int argc, char **argv)
   else if (argc == 5)
   {
     str2int(r, argv[3], strlen(argv[3]));
-    printf("Initializing modulus to: %s\n", argv[3]);
-    mpz_out_str(stdout, bit_size, r);
-    printf("\n");
+    // printf("Initializing modulus to: %s\n", argv[3]);
+    // mpz_out_str(stdout, bit_size, r);
+    // printf("\n");
   }
 
   for (i = 0; i < trials; i++) 
