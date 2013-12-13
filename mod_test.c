@@ -2,6 +2,14 @@
 #include <time.h>
 #include <gmp.h>
 
+/* Number of character */
+#define BASE 256 // JIS X 201
+
+/* Max length of string */
+#ifndef MAXLEN
+  #define MAXLEN 256
+#endif
+
 // copied from: http://comp.ist.utl.pt/ec-csc/Labs/sol-RSA/rsa2.c
 void str2int(mpz_t ret, char *str, long int str_len) {
 /* string to integer */
