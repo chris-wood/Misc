@@ -85,28 +85,18 @@ int main(int argc, char **argv)
       secs = difftime(te.tv_sec, ts.tv_sec);
       elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
     }
-    if (mode == 1)
-    {
-      clock_gettime(CLOCK_MONOTONIC, &ts);
-      mpz_mul(x, y, z);
-      mpz_mod(x, x, r);
-      clock_gettime(CLOCK_MONOTONIC, &te);
-      secs = difftime(te.tv_sec, ts.tv_sec);
-      elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
-    }
-    else if (mode == 2)
+    else if (mode == 1)
     {
       clock_gettime(CLOCK_MONOTONIC, &ts);
       mpz_add(x, y, z);
+      mpz_mod(x, x, r);
       clock_gettime(CLOCK_MONOTONIC, &te);
       secs = difftime(te.tv_sec, ts.tv_sec);
       elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
     }
   }
 
-  printf("Trials:       %d\n", trials);
-  printf("Total time:   %ld\n", elapsed);
-  printf("Average time: %ld\n", elapsed / trials);
+  printf("%d,%ld,%ld\n", trials, elapsed, elapsed / trials);
 
   // printf("x = (y * z) mod r = ");
   // mpz_out_str (stdout, 10, x);

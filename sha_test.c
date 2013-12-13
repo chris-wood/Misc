@@ -37,9 +37,7 @@ int main(int argc, char** argv)
         elapsed += ((secs * 1.0e9) + ((double)(te.tv_nsec - ts.tv_nsec)));
     }
 
-    printf("Trials:       %d\n", trials);
-    printf("Total time:   %ld\n", elapsed);
-    printf("Average time: %ld\n", elapsed / trials);
+    printf("%d,%ld,%ld\n", trials, elapsed, elapsed / trials);
 
     return 0;
 }
