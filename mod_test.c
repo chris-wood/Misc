@@ -11,7 +11,7 @@
 #endif
 
 // copied from: http://comp.ist.utl.pt/ec-csc/Labs/sol-RSA/rsa2.c
-void str2int(mpz_t ret, char *str, long int str_len) {
+mpz_t str2int(mpz_t ret, char *str, long int str_len) {
 /* string to integer */
   long int i;
   unsigned char c;
@@ -25,7 +25,10 @@ void str2int(mpz_t ret, char *str, long int str_len) {
 
     /* Horner's method */
     mpz_mul_ui(ret, ret, (unsigned long)BASE);
-    mpz_add_ui(ret, ret, (unsigned long)c); }
+    mpz_add_ui(ret, ret, (unsigned long)c); 
+  }
+
+  return ret;
 }
 
 int main(int argc, char **argv)
@@ -58,7 +61,7 @@ int main(int argc, char **argv)
   }
   else if (argc == 5)
   {
-    str2int(r, argv[3], strlen(argv[3]));
+    r = str2int(r, argv[3], strlen(argv[3]));
     printf("Initializing modulus to: %s\n", argv[3]);
     mpz_out_str(stdout, bit_size, r);
     printf("\n");
