@@ -40,4 +40,5 @@ for t in trials:
 	for l in p.stdout.readlines():
 		l = l.strip()
 		lines.append("sha_160," + str(b) + "," + l) 
-
+for l in lines:
+	print(l)
